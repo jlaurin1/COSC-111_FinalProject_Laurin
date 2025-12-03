@@ -9,9 +9,9 @@ Purpose: To store the questions and answers for the trivia game and to handle us
 
 public class question {
     public static void main(String[] args) {
-        int score = 0;
-        int numQuestions = 0;
-        String[] questions = {
+        int score = 0; // keeps track of the user's score
+        int numQuestions = 0; // keeps track of the number of questions asked
+        String[] questions = { // list of questions
             "What is the capital of France?\n a) Berlin\n b) Madrid\n c) Paris\n d) Rome",
             "Who wrote 'Hamlet'?\n a) Charles Dickens\n b) William Shakespeare\n c) Mark Twain\n d) Jane Austen",
             "What is the largest planet in our solar system?\n a) Earth\n b) Jupiter\n c) Saturn\n d) Mars",
@@ -45,7 +45,7 @@ public class question {
             "Where was the 2016 Summer Olympics held?\n a) Beijing\n b) London\n c) Rio de Janeiro\n d) Tokyo",
 
         };
-        String[] answers = {
+        String[] answers = { // list of answers
             "c",
             "b",
             "b",
@@ -82,21 +82,22 @@ public class question {
         
             
         
-        for (int i = 0; i < 15; i++) {
-            numQuestions++;
-            System.out.println("Question " + numQuestions + ":");
-            System.out.println(questions[i]);
-            System.out.print("Your answer: ");
-            String userAnswer = System.console().readLine().toLowerCase();
-            if (userAnswer.equals(answers[i])) {
-                System.out.println("Correct!\n");
-                score++;
+        for (int i = 0; i < 15; i++) { // loops through 15 questions
+            numQuestions++; // counts the number of questions
+            System.out.println("Question " + numQuestions + ":"); // display question number
+            System.out.println(questions[i]); // display question
+            System.out.print("Your answer: "); // display prompt for user answer
+            String userAnswer = System.console().readLine().toLowerCase(); // get user answer and convert to lowercase
+            if (userAnswer.equals(answers[i])) { // check if user answer is correct
+                System.out.println("Correct!\n"); // prints if correct
+                score++; // counts the score
             } else {
-                System.out.println("Incorrect! The correct answer was: " + answers[i] + "\n");
+                System.out.println("Incorrect! The correct answer was: " + answers[i] + "\n"); // prints if incorrect and user gets no points
+            
             }
 
 
         }
-        System.out.println("Your total score is: " + score + " out of 15");
+        System.out.println("Your total score is: " + score + " out of 15"); // display total score
     }
 }

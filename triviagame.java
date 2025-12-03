@@ -5,8 +5,8 @@ Purpose: To run the trivia game by invoking the main method of the question clas
  */ 
 public class triviagame {
     public static void main(String[] args) {
-        question trivia = new question();
-        trivia.main(args);
+        question trivia = new question(); // create an instance of the question class
+        trivia.main(args); // call the main method of the question class to start the game
         
     }
 }

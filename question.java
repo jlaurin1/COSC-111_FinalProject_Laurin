@@ -1,17 +1,22 @@
 // This class has the list of questions for the trivia game and the answers for each question.
 // This class Promts the user with each question and checks if their answer is correct
-// It prints out the qurstion and the list of possible answers for each question.
+// If question at randindex is not "", the user is prompted to answer.
+// It prints out a random question and the list of possible answers for each question.
+// The game should not print the same question more than once in a single game.
 // If the user gets each question right, they get one point. Otherwise, they get zero points.
 /* Author: Joey Laurin
 Date: 11/23/2025
 Purpose: To store the questions and answers for the trivia game and to handle user interaction.
  */
-
+import java.util.Random;
+import java.util.Scanner;
 public class question {
-    public static void main(String[] args) {
-        int score = 0; // keeps track of the user's score
-        int numQuestions = 0; // keeps track of the number of questions asked
-        String[] questions = { // list of questions
+    private String[] questions;
+    private String[] answers;
+    private int score;
+    private int numQuestions;
+    public question() {
+        this.questions = new String[] { // list of questions
             "What is the capital of France?\n a) Berlin\n b) Madrid\n c) Paris\n d) Rome",
             "Who wrote 'Hamlet'?\n a) Charles Dickens\n b) William Shakespeare\n c) Mark Twain\n d) Jane Austen",
             "What is the largest planet in our solar system?\n a) Earth\n b) Jupiter\n c) Saturn\n d) Mars",
@@ -43,9 +48,8 @@ public class question {
             "Which planet has the most moons?\n a) Earth\n b) Mars\n c) Jupiter\n d) Saturn",
             "What is the largest desert in the world?\n a) Sahara\n b) Arabian\n c) Gobi\n d) Antarctic",
             "Where was the 2016 Summer Olympics held?\n a) Beijing\n b) London\n c) Rio de Janeiro\n d) Tokyo",
-
         };
-        String[] answers = { // list of answers
+        this.answers = new String[] { // list of correct answers
             "c",
             "b",
             "b",
@@ -78,26 +82,40 @@ public class question {
             "c"
 
         };
-
-        
-            
-        
-        for (int i = 0; i < 15; i++) { // loops through 15 questions
-            numQuestions++; // counts the number of questions
-            System.out.println("Question " + numQuestions + ":"); // display question number
-            System.out.println(questions[i]); // display question
-            System.out.print("Your answer: "); // display prompt for user answer
-            String userAnswer = System.console().readLine().toLowerCase(); // get user answer and convert to lowercase
-            if (userAnswer.equals(answers[i])) { // check if user answer is correct
-                System.out.println("Correct!\n"); // prints if correct
-                score++; // counts the score
+        this.score = 0;
+        this.numQuestions = 0;
+    }
+    public String getQuestion(int index) { // return the question
+        return questions[index];
+    }
+    public String getAnswer(int index) {    // return the answer
+        return answers[index];
+    }
+    public void playGame() { // play the game
+        Random rand = new Random(); // generate random index
+        Scanner scanner = new Scanner(System.in); // read user input
+        for (int i = 0; i < 15; i++) { // play 15 questions
+            int randIndex = rand.nextInt(30); // generate random index
+            if (!questions[randIndex].equals("")) { // check if the question has not been used
+                System.out.println("Question " + (i + 1) + ":"); // print question number
+                System.out.println(questions[randIndex]); // print question
+                String userAnswer = scanner.nextLine(); // read user answer
+                if (userAnswer.equalsIgnoreCase(answers[randIndex])) { // check if user answer is correct
+                    score++; // count the score
+                    System.out.println("Correct!"); // print correct
+                } else {
+                    System.out.println("Incorrect. The correct answer is " + answers[randIndex]); // print incorrect and correct answer if user is wrong
+                }
+                questions[randIndex] = ""; // mark the question as used
+                numQuestions++; // count the number of questions asked
             } else {
-                System.out.println("Incorrect! The correct answer was: " + answers[i] + "\n"); // prints if incorrect and user gets no points
-            
+                i--; // skip this iteration and try again
             }
-
-
         }
-        System.out.println("Your total score is: " + score + " out of 15"); // display total score
+        
+    }
+    public int getScore() {
+        System.out.println("You got " + score + " out of " + numQuestions + " questions correct."); // print the score
+        return score; // return the score
     }
 }
